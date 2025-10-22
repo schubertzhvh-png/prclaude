@@ -1,18 +1,30 @@
 {
   "name": "growth-strategy-mindmap-generator",
-  "version": "1.0.0",
-  "description": "Automated mind map generator for growth strategy analysis",
+  "version": "2.0.0",
+  "description": "Automated mind map generator for growth strategy analysis with Miro integration",
   "main": "generate-mindmap.js",
   "scripts": {
     "generate": "node generate-mindmap.js",
+    "generate:derek": "node generate-derek-mindmap.js",
+    "miro": "node miro-integration.js",
+    "miro:setup": "cat MIRO_SETUP.md",
     "test": "echo \"No tests yet\""
   },
   "keywords": [
     "mindmap",
     "growth-strategy",
     "visualization",
-    "markmap"
+    "markmap",
+    "miro",
+    "miro-api",
+    "strategy-consulting"
   ],
   "author": "Growth Strategy Coordinator",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
 }

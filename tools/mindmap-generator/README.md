@@ -6,14 +6,15 @@
 
 - ✅ Конвертация structured analysis в markdown mind map
 - ✅ Генерация интерактивной HTML визуализации
+- ✅ **Автоматическое создание в Miro через REST API** 🔥
 - ✅ Красивый дизайн с цветовой кодировкой
 - ✅ Zoom, pan, expand/collapse nodes
 - ✅ Экспорт в markdown для редактирования
-- ✅ Готово для импорта в Miro/Figma
+- ✅ Готово для совместной работы с клиентами
 
 ## Использование
 
-### Быстрый старт
+### Вариант 1: HTML Mind Map (Локально)
 
 ```bash
 node generate-mindmap.js
@@ -23,9 +24,44 @@ node generate-mindmap.js
 - `output/growth-strategy.md` - markdown версия
 - `output/growth-strategy-mindmap.html` - интерактивная HTML mind map
 
-### Открыть результат
+Открой `output/growth-strategy-mindmap.html` в браузере!
 
-Просто открой `output/growth-strategy-mindmap.html` в браузере!
+### Вариант 2: Miro Mind Map (Облако) 🔥 НОВОЕ!
+
+Автоматически создает mind map прямо в Miro для совместной работы с клиентами!
+
+#### Setup (один раз):
+
+1. **Получи Miro Access Token:**
+   - Иди на https://miro.com/app/settings/user-profile/apps
+   - Create new app → Copy access token
+   - Подробные инструкции: см. `MIRO_SETUP.md`
+
+2. **Настрой environment:**
+   ```bash
+   cp .env.example .env
+   # Отредактируй .env и добавь свой token
+   ```
+
+3. **Запусти:**
+   ```bash
+   node miro-integration.js
+   ```
+
+#### Результат:
+- ✅ Новый Miro board создан
+- ✅ Mind map автоматически добавлен
+- ✅ Получишь ссылку для sharing с клиентом
+- ✅ Можно редактировать вместе в реальном времени
+
+**Пример output:**
+```
+🚀 Miro Mind Map Generator
+📋 Creating new Miro board...
+✅ Board created!
+🎨 Creating mind map in Miro...
+✅ Done! View at: https://miro.com/app/board/YOUR_BOARD_ID/
+```
 
 ## Структура данных
 
@@ -75,6 +111,16 @@ const colors = [
 
 ## Экспорт в Miro
 
+### Автоматический (Рекомендуется) 🔥
+
+```bash
+node miro-integration.js
+```
+
+Создаст board и mind map автоматически через Miro REST API!
+
+### Ручной
+
 1. Открой HTML mind map
 2. Сделай screenshot (или используй browser dev tools для SVG export)
 3. Импортируй в Miro как image
@@ -88,11 +134,13 @@ const colors = [
 
 ## TODO
 
-- [ ] Добавить Miro REST API integration
+- [x] Miro REST API integration ✅
 - [ ] PDF export
 - [ ] Custom color schemes
 - [ ] Multiple templates
 - [ ] CLI с параметрами
+- [ ] Batch processing для нескольких клиентов
+- [ ] Webhook integration для уведомлений
 
 ## Примеры
 

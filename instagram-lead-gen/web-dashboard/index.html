@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram Lead Gen - Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>📊 Instagram Lead Gen</h1>
+        <p class="version">v1.0 Dashboard</p>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-page="overview">
+          <span class="icon">📈</span>
+          <span>Overview</span>
+        </a>
+        <a href="#" class="nav-item" data-page="leads">
+          <span class="icon">👥</span>
+          <span>Leads</span>
+          <span class="badge" id="leadsCount">0</span>
+        </a>
+        <a href="#" class="nav-item" data-page="campaigns">
+          <span class="icon">📢</span>
+          <span>Campaigns</span>
+          <span class="badge" id="campaignsCount">0</span>
+        </a>
+        <a href="#" class="nav-item" data-page="scraper">
+          <span class="icon">🔍</span>
+          <span>Scraper</span>
+        </a>
+        <a href="#" class="nav-item" data-page="analytics">
+          <span class="icon">📊</span>
+          <span>Analytics</span>
+        </a>
+        <a href="#" class="nav-item" data-page="settings">
+          <span class="icon">⚙️</span>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="connection-status">
+          <div class="status-indicator" id="extensionStatus"></div>
+          <span id="statusText">Extension: Disconnected</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-left">
+          <h2 id="pageTitle">Overview</h2>
+          <p id="pageSubtitle">Welcome to your dashboard</p>
+        </div>
+        <div class="header-right">
+          <button class="btn btn-secondary" onclick="syncWithExtension()">
+            🔄 Sync
+          </button>
+          <button class="btn btn-primary" onclick="showQuickAction()">
+            + Quick Action
+          </button>
+        </div>
+      </header>
+
+      <!-- Content Area -->
+      <div class="content" id="contentArea">
+        <!-- Dynamic content will be loaded here -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

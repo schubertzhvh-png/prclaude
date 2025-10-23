@@ -33,16 +33,34 @@ async function makeRequest(method, endpoint, accessToken, body = null) {
   return await response.json();
 }
 
+// Color mapping: name to HEX (shapes API requires HEX format)
+const COLORS = {
+  'dark_blue': '#1E3A8A',
+  'red': '#DC2626',
+  'orange': '#F97316',
+  'light_blue': '#3B82F6',
+  'cyan': '#06B6D4',
+  'light_green': '#86EFAC',
+  'green': '#10B981',
+  'blue': '#2563EB',
+  'violet': '#8B5CF6',
+  'yellow': '#FCD34D',
+  'pink': '#EC4899',
+  'gray': '#6B7280'
+};
+
 // Create shape (instead of sticky note)
-async function createShape(accessToken, boardId, content, x, y, color, width = 300, height = 200) {
+async function createShape(accessToken, boardId, content, x, y, colorName, width = 300, height = 200) {
+  const hexColor = COLORS[colorName] || '#3B82F6'; // default to light_blue if color not found
+
   return makeRequest('POST', `/v2/boards/${boardId}/shapes`, accessToken, {
     data: {
       content: content,
       shape: 'round_rectangle'
     },
     style: {
-      fillColor: color,
-      borderColor: color,
+      fillColor: hexColor,
+      borderColor: hexColor,
       borderWidth: '2',
       fontFamily: 'arial',
       fontSize: '14',

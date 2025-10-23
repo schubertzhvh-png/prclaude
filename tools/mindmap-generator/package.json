@@ -22,7 +22,7 @@
   "author": "Growth Strategy Coordinator",
   "license": "MIT",
   "dependencies": {
-    "dotenv": "^16.0.0"
+    "dotenv": "^16.6.1"
   },
   "engines": {
     "node": ">=14.0.0"

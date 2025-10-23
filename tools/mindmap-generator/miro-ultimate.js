@@ -1609,6 +1609,870 @@ async function createUltimateMindMap() {
     createdItems.push(honestTruth);
     await delay(350);
 
+    // ===== COMPETITIVE ANALYSIS DETAILED =====
+    console.log('Creating competitive analysis...');
+    const competitive = await createShape(
+      MIRO_ACCESS_TOKEN,
+      MIRO_BOARD_ID,
+      '<b style="font-size:15px;">🏆 COMPETITIVE ANALYSIS</b><br><br>' +
+      '<b>Direct Competitors in Agency Coaching:</b><br><br>' +
+      '<b>1. Karl Sakas</b><br>' +
+      '• Positioning: "Agency Management Expert"<br>' +
+      '• Audience: 10K+ email, established authority<br>' +
+      '• Offers: Consulting $10K-$50K<br>' +
+      '• Strength: Deep expertise, book author<br>' +
+      '• Weakness: Higher price point, less accessible<br><br>' +
+      '<b>2. Parakeeto (Marcel Petitpas)</b><br>' +
+      '• Positioning: "Agency Profitability Expert"<br>' +
+      '• Audience: Medium, focused community<br>' +
+      '• Offers: $997-$10K courses/consulting<br>' +
+      '• Strength: Data-driven, specific niche<br>' +
+      '• Weakness: Very narrow focus (just profit)<br><br>' +
+      '<b>3. GYDA (Grow Your Digital Agency)</b><br>' +
+      '• Positioning: "Agency Growth Collective"<br>' +
+      '• Audience: Large, multiple coaches<br>' +
+      '• Offers: $5K-$25K mastermind<br>' +
+      '• Strength: Community, multiple experts<br>' +
+      '• Weakness: Less personal, generalist<br><br>' +
+      '<b>YOUR Opportunity:</b><br>' +
+      '• Focus on FREEDOM (scale while working less)<br>' +
+      '• Younger, more relatable to millennials<br>' +
+      '• Systems-first approach (not just sales)<br>' +
+      '• Mid-premium pricing ($6K-$20K sweet spot)',
+      centerX - colSpacing * 2.8,
+      centerY + rowSpacing * 8.4,
+      'orange',
+      340,
+      460
+    );
+    createdItems.push(competitive);
+    await delay(350);
+
+    // ===== SALES FUNNEL BREAKDOWN =====
+    console.log('Creating sales funnel...');
+    const salesFunnel = await createShape(
+      MIRO_ACCESS_TOKEN,
+      MIRO_BOARD_ID,
+      '<b style="font-size:15px;">🎯 SALES FUNNEL BREAKDOWN</b><br><br>' +
+      '<b>Complete Funnel (5 Stages):</b><br><br>' +
+      '<b>Stage 1: AWARENESS</b><br>' +
+      '• Traffic sources: Instagram, YouTube, LinkedIn<br>' +
+      '• Goal: Get them to know you exist<br>' +
+      '• Content: Educational Reels, YouTube videos<br>' +
+      '• Metric: Reach, impressions, views<br><br>' +
+      '<b>Stage 2: INTEREST</b><br>' +
+      '• Hook: Lead magnet (audit, calculator, roadmap)<br>' +
+      '• Goal: Capture email address<br>' +
+      '• Landing page with clear value prop<br>' +
+      '• Metric: Opt-in rate (30-40% goal)<br><br>' +
+      '<b>Stage 3: CONSIDERATION</b><br>' +
+      '• Email sequence: 7-email welcome series<br>' +
+      '• Weekly newsletter: Build trust & authority<br>' +
+      '• Goal: Warm them up to your offers<br>' +
+      '• Metric: Email open rate (30-40%)<br><br>' +
+      '<b>Stage 4: INTENT</b><br>' +
+      '• Webinar or 5-day challenge<br>' +
+      '• Application for high-ticket program<br>' +
+      '• Goal: Book sales calls<br>' +
+      '• Metric: Application rate (5-10% of attendees)<br><br>' +
+      '<b>Stage 5: PURCHASE</b><br>' +
+      '• Sales call (45-60 min)<br>' +
+      '• Close with urgency & scarcity<br>' +
+      '• Goal: Convert to client<br>' +
+      '• Metric: Close rate (30-50%)<br><br>' +
+      '<b>Conversion Math:</b><br>' +
+      '1,000 followers → 100 leads → 10 calls → 4 clients',
+      centerX - colSpacing * 1.6,
+      centerY + rowSpacing * 8.4,
+      'blue',
+      340,
+      480
+    );
+    createdItems.push(salesFunnel);
+    await delay(350);
+
+    // ===== CONTENT BATCHING STRATEGY =====
+    console.log('Creating content batching strategy...');
+    const contentBatching = await createShape(
+      MIRO_ACCESS_TOKEN,
+      MIRO_BOARD_ID,
+      '<b style="font-size:15px;">⚡ CONTENT BATCHING STRATEGY</b><br><br>' +
+      '<b>Why Batch: Save 10-15 hours per week!</b><br><br>' +
+      '<b>Monthly Batching Schedule:</b><br><br>' +
+      '<b>Week 1 (Planning Day - 3 hours):</b><br>' +
+      '• Plan content calendar for month<br>' +
+      '• Research trending topics<br>' +
+      '• Outline 30 days of content<br>' +
+      '• Write captions for all posts<br><br>' +
+      '<b>Week 2 (Filming Day - 6 hours):</b><br>' +
+      '• Film 20-30 Reels in one session<br>' +
+      '• Film 4-8 YouTube videos<br>' +
+      '• Batch same outfit, location, setup<br>' +
+      '• Use different hooks/topics<br><br>' +
+      '<b>Week 3 (Editing Day - 4 hours):</b><br>' +
+      '• Edit all Reels (15-20 min each)<br>' +
+      '• Edit YouTube videos (or outsource)<br>' +
+      '• Create thumbnails (batch in Canva)<br><br>' +
+      '<b>Week 4 (Scheduling Day - 2 hours):</b><br>' +
+      '• Schedule all Instagram posts<br>' +
+      '• Schedule Reels for optimal times<br>' +
+      '• Upload YouTube videos<br>' +
+      '• Schedule LinkedIn posts<br><br>' +
+      '<b>Tools for Batching:</b><br>' +
+      '• Later or Planoly (IG scheduling)<br>' +
+      '• TubeBuddy (YouTube scheduling)<br>' +
+      '• Buffer (LinkedIn scheduling)<br><br>' +
+      '<b>Result:</b> 15 hours batching vs 30 hours daily<br>' +
+      'Saves 15 hours/month = 180 hours/year!',
+      centerX - colSpacing * 0.4,
+      centerY + rowSpacing * 8.4,
+      'green',
+      340,
+      480
+    );
+    createdItems.push(contentBatching);
+    await delay(350);
+
+    // ===== 12-MONTH LAUNCH CALENDAR =====
+    console.log('Creating launch calendar...');
+    const launchCalendar = await createShape(
+      MIRO_ACCESS_TOKEN,
+      MIRO_BOARD_ID,
+      '<b style="font-size:15px;">📅 12-MONTH LAUNCH CALENDAR</b><br><br>' +
+      '<b>Strategic Launch Timing:</b><br><br>' +
+      '<b>Q1 (Jan-Mar):</b><br>' +
+      '• January: Launch low-ticket ($97 product)<br>' +
+      '  - New Year motivation high<br>' +
+      '  - People ready to invest in growth<br>' +
+      '• February: Nurture & grow audience<br>' +
+      '• March: Prepare high-ticket offer<br><br>' +
+      '<b>Q2 (Apr-Jun):</b><br>' +
+      '• April: Beta high-ticket launch ($3K-$4K)<br>' +
+      '  - Tax refunds = buying power<br>' +
+      '• May: Deliver beta program<br>' +
+      '• June: Collect testimonials<br><br>' +
+      '<b>Q3 (Jul-Sep):</b><br>' +
+      '• July: Quiet month (vacations)<br>' +
+      '  - Build waitlist<br>' +
+      '• August: Prep for fall launch<br>' +
+      '• September: MAJOR launch #1 ($6K-$8K)<br>' +
+      '  - Back-to-business mindset<br><br>' +
+      '<b>Q4 (Oct-Dec):</b><br>' +
+      '• October: Deliver program cohort<br>' +
+      '• November: Black Friday sale (low-ticket)<br>' +
+      '• December: Launch #2 or close year<br><br>' +
+      '<b>Best Launch Months:</b><br>' +
+      '1. January (New Year energy)<br>' +
+      '2. September (back to business)<br>' +
+      '3. April (tax refund season)<br><br>' +
+      '<b>Worst Launch Months:</b><br>' +
+      '• July (vacations)<br>' +
+      '• December (holidays)',
+      centerX + colSpacing * 0.8,
+      centerY + rowSpacing * 8.4,
+      'light_blue',
+      340,
+      480
+    );
+    createdItems.push(launchCalendar);
+    await delay(350);
+
+    // ===== SALES CALL SCRIPT =====
+    console.log('Creating sales call script...');
+    const salesScript = await createShape(
+      MIRO_ACCESS_TOKEN,
+      MIRO_BOARD_ID,
+      '<b style="font-size:15px;">📞 SALES CALL SCRIPT (45-60 min)</b><br><br>' +
+      '<b>Part 1: RAPPORT (5 min)</b><br>' +
+      '"Hey [Name]! Great to connect. How\'s your day going?"<br>' +
+      '• Small talk, build connection<br>' +
+      '• Set agenda: "I\'ve got 45 min, let\'s dive in"<br><br>' +
+      '<b>Part 2: DISCOVERY (15-20 min)</b><br>' +
+      'Ask these questions:<br>' +
+      '1. "Tell me about your agency - what do you do?"<br>' +
+      '2. "What\'s your current revenue? Goal revenue?"<br>' +
+      '3. "How many hours/week are you working?"<br>' +
+      '4. "What\'s your biggest challenge right now?"<br>' +
+      '5. "What have you tried to solve this?"<br>' +
+      '6. "What happens if nothing changes?"<br>' +
+      '7. "What would success look like in 12 months?"<br><br>' +
+      '<b>Part 3: PRESENT SOLUTION (15 min)</b><br>' +
+      '"Based on what you shared, here\'s how I can help..."<br>' +
+      '• Explain 12-week program<br>' +
+      '• Show curriculum (tailored to their pain)<br>' +
+      '• Share 2-3 relevant case studies<br>' +
+      '• Paint the transformation picture<br><br>' +
+      '<b>Part 4: HANDLE OBJECTIONS (10 min)</b><br>' +
+      'Common objections:<br>' +
+      '• "I need to think about it"<br>' +
+      '  → "What specifically do you need to think about?"<br>' +
+      '• "It\'s too expensive"<br>' +
+      '  → "What\'s the cost of NOT solving this?"<br>' +
+      '• "I need to talk to my partner"<br>' +
+      '  → "Let\'s get them on a call now"<br><br>' +
+      '<b>Part 5: CLOSE (5 min)</b><br>' +
+      '"Are you ready to get started?"<br>' +
+      '• If yes: Payment link, onboarding<br>' +
+      '• If no: "What\'s holding you back?"',
+      centerX + colSpacing * 2.0,
+      centerY + rowSpacing * 8.4,
+      'violet',
+      340,
+      480
+    );
+    createdItems.push(salesScript);
+    await delay(350);
+
+    // ===== COMMUNITY BUILDING =====
+    console.log('Creating community building strategy...');
+    const community = await createShape(
+      MIRO_ACCESS_TOKEN,
+      MIRO_BOARD_ID,
+      '<b style="font-size:15px;">👥 COMMUNITY BUILDING STRATEGY</b><br><br>' +
+      '<b>Why Community Matters:</b><br>' +
+      '• Higher retention (2x)<br>' +
+      '• More referrals (3x)<br>' +
+      '• Better results (students help each other)<br>' +
+      '• Competitive moat<br><br>' +
+      '<b>Platform Choice:</b><br>' +
+      '• Circle: $89/mo (best all-in-one)<br>' +
+      '• Skool: $99/mo (gamification)<br>' +
+      '• Slack: Free (but chaotic)<br>' +
+      '• Facebook: Free (but algorithm issues)<br><br>' +
+      '<b>Community Structure:</b><br>' +
+      '1. <b>Welcome Channel</b><br>' +
+      '   • New member intros<br>' +
+      '   • Getting started guide<br>' +
+      '2. <b>Wins Channel</b><br>' +
+      '   • Celebrate successes<br>' +
+      '   • Build momentum<br>' +
+      '3. <b>Questions Channel</b><br>' +
+      '   • Get help from peers<br>' +
+      '   • You answer 1-2/day<br>' +
+      '4. <b>Accountability Channel</b><br>' +
+      '   • Weekly check-ins<br>' +
+      '   • Goal setting<br>' +
+      '5. <b>Resources Library</b><br>' +
+      '   • Templates, SOPs, guides<br><br>' +
+      '<b>Engagement Tactics:</b><br>' +
+      '• Weekly Q&A calls (live)<br>' +
+      '• Monthly challenges<br>' +
+      '• Peer accountability partners<br>' +
+      '• Leaderboards (gamification)<br>' +
+      '• Exclusive content drops<br><br>' +
+      '<b>Moderation:</b><br>' +
+      '• You (first 50 members)<br>' +
+      '• Community manager (after 100+)',
+      centerX + colSpacing * 3.2,
+      centerY + rowSpacing * 8.4,
+      'cyan',
+      340,
+      480
+    );
+    createdItems.push(community);
+    await delay(350);
+
+    // ===== REFERRAL PROGRAM =====
+    console.log('Creating referral program...');
+    const referral = await createShape(
+      MIRO_ACCESS_TOKEN,
+      MIRO_BOARD_ID,
+      '<b style="font-size:15px;">🎁 REFERRAL PROGRAM DESIGN</b><br><br>' +
+      '<b>Why Referrals Work:</b><br>' +
+      '• 5x cheaper than ads<br>' +
+      '• 3x higher close rate<br>' +
+      '• Pre-qualified leads<br>' +
+      '• Trust already built<br><br>' +
+      '<b>Referral Structure (3 Tiers):</b><br><br>' +
+      '<b>Tier 1: Customer Referrals</b><br>' +
+      '• Current clients refer friends<br>' +
+      '• Reward: $500 credit per referral<br>' +
+      '  (applied to next purchase/renewal)<br>' +
+      '• Or: 1 month free coaching<br><br>' +
+      '<b>Tier 2: Affiliate Program</b><br>' +
+      '• For audience builders (not clients)<br>' +
+      '• Commission: 20% recurring<br>' +
+      '• Example: They refer $10K client = $2K<br>' +
+      '• Tools: Rewardful or PartnerStack<br><br>' +
+      '<b>Tier 3: Strategic Partners</b><br>' +
+      '• Other coaches, consultants<br>' +
+      '• Revenue share: 30-50%<br>' +
+      '• They deliver part of the program<br><br>' +
+      '<b>How to Launch:</b><br>' +
+      '1. Start with Tier 1 (clients only)<br>' +
+      '2. Add Tier 2 after 20+ clients<br>' +
+      '3. Add Tier 3 in Year 2-3<br><br>' +
+      '<b>Referral Ask Template:</b><br>' +
+      '"Who else do you know struggling with [problem]?<br>' +
+      'If you refer them and they join, you get [reward]."<br><br>' +
+      '<b>Timing:</b><br>' +
+      '• Ask after they get their first win<br>' +
+      '• Ask at program completion<br>' +
+      '• Include in every testimonial request',
+      centerX - colSpacing * 2.8,
+      centerY + rowSpacing * 9.8,
+      'yellow',
+      340,
+      480
+    );
+    createdItems.push(referral);
+    await delay(350);
+
+    // ===== SPEAKING STRATEGY =====
+    console.log('Creating speaking strategy...');
+    const speaking = await createShape(
+      MIRO_ACCESS_TOKEN,
+      MIRO_BOARD_ID,
+      '<b style="font-size:15px;">🎤 SPEAKING & WORKSHOP STRATEGY</b><br><br>' +
+      '<b>Timeline: Start in Year 2-3</b><br><br>' +
+      '<b>Types of Speaking Gigs:</b><br>' +
+      '1. <b>Free (Authority Building)</b><br>' +
+      '   • Podcasts: 50-100 appearances<br>' +
+      '   • Virtual summits: 10-20/year<br>' +
+      '   • Webinars for partners<br>' +
+      '   • Goal: Build audience, not revenue<br><br>' +
+      '2. <b>Paid (Mid-Tier: $2K-$10K)</b><br>' +
+      '   • Industry conferences<br>' +
+      '   • Association events<br>' +
+      '   • Corporate lunch-and-learns<br>' +
+      '   • 30-60 min keynotes<br><br>' +
+      '3. <b>Premium ($10K-$50K)</b><br>' +
+      '   • Full-day workshops<br>' +
+      '   • Multi-day retreats<br>' +
+      '   • Executive team training<br>' +
+      '   • Requires strong authority<br><br>' +
+      '<b>How to Get Booked:</b><br>' +
+      '1. Create speaker one-sheet (PDF)<br>' +
+      '   • Headshot, bio, topics<br>' +
+      '   • Past speaking experience<br>' +
+      '   • Video demo reel (3-5 min)<br>' +
+      '2. Pitch to event organizers<br>' +
+      '   • Find events via Google<br>' +
+      '   • LinkedIn search: "event organizer"<br>' +
+      '3. Join speaker bureaus (Year 3+)<br><br>' +
+      '<b>Signature Talk Structure:</b><br>' +
+      '• Hook (story): 5 min<br>' +
+      '• Problem: 10 min<br>' +
+      '• Framework (3-5 steps): 25 min<br>' +
+      '• Call to action: 5 min<br><br>' +
+      '<b>Pitch from Stage:</b><br>' +
+      '• Lead magnet in presentation<br>' +
+      '• QR code for opt-in<br>' +
+      '• Back-of-room sales (books/courses)',
+      centerX - colSpacing * 1.6,
+      centerY + rowSpacing * 9.8,
+      'pink',
+      340,
+      480
+    );
+    createdItems.push(speaking);
+    await delay(350);
+
+    // ===== BOOK WRITING ROADMAP =====
+    console.log('Creating book writing roadmap...');
+    const bookRoadmap = await createShape(
+      MIRO_ACCESS_TOKEN,
+      MIRO_BOARD_ID,
+      '<b style="font-size:15px;">📖 BOOK WRITING ROADMAP</b><br><br>' +
+      '<b>Timeline: Year 2-3 (when you have proof)</b><br><br>' +
+      '<b>Why Write a Book:</b><br>' +
+      '• Ultimate authority builder<br>' +
+      '• Opens speaking opportunities<br>' +
+      '• Lead generation machine<br>' +
+      '• Premium pricing justification<br>' +
+      '• Direct revenue: $50K-$200K<br><br>' +
+      '<b>Traditional vs Self-Publishing:</b><br><br>' +
+      '<b>Traditional Publishing:</b><br>' +
+      '✓ Credibility, bookstore distribution<br>' +
+      '✗ Takes 18-24 months<br>' +
+      '✗ Lower royalties (10-15%)<br>' +
+      '✗ Less control<br><br>' +
+      '<b>Self-Publishing:</b><br>' +
+      '✓ Fast (3-6 months)<br>' +
+      '✓ Higher royalties (70%)<br>' +
+      '✓ Full control<br>' +
+      '✗ You handle everything<br><br>' +
+      '<b>Recommended: Self-Publish First</b><br><br>' +
+      '<b>6-Month Book Plan:</b><br>' +
+      'Month 1-2: Outline & research<br>' +
+      'Month 3-4: Write (40K-60K words)<br>' +
+      'Month 5: Edit & design<br>' +
+      'Month 6: Launch campaign<br><br>' +
+      '<b>Book Launch Strategy:</b><br>' +
+      '• Pre-sell to email list<br>' +
+      '• Amazon bestseller campaign<br>' +
+      '• Bulk sales to corporations<br>' +
+      '• Use as high-ticket bonus<br><br>' +
+      '<b>Title Ideas:</b><br>' +
+      '• "The Agency Freedom Method"<br>' +
+      '• "Scale Your Agency, Reclaim Your Life"<br>' +
+      '• "The $1M Agency Blueprint"',
+      centerX - colSpacing * 0.4,
+      centerY + rowSpacing * 9.8,
+      'orange',
+      340,
+      460
+    );
+    createdItems.push(bookRoadmap);
+    await delay(350);
+
+    // ===== MEDIA OUTREACH =====
+    console.log('Creating media outreach strategy...');
+    const mediaOutreach = await createShape(
+      MIRO_ACCESS_TOKEN,
+      MIRO_BOARD_ID,
+      '<b style="font-size:15px;">📰 MEDIA & PR STRATEGY</b><br><br>' +
+      '<b>Timeline: Year 2-3</b><br><br>' +
+      '<b>Why Media Matters:</b><br>' +
+      '• Instant credibility<br>' +
+      '• "As Seen In" logos on website<br>' +
+      '• Traffic spike<br>' +
+      '• Higher pricing power<br><br>' +
+      '<b>Target Publications:</b><br><br>' +
+      '<b>Tier 1 (Dream Goals):</b><br>' +
+      '• Forbes, Inc, Entrepreneur<br>' +
+      '• Fast Company, Business Insider<br>' +
+      '• Require strong credentials<br><br>' +
+      '<b>Tier 2 (Achievable Year 2):</b><br>' +
+      '• Industry-specific publications<br>' +
+      '• Agency/marketing blogs<br>' +
+      '• Podcast features<br><br>' +
+      '<b>Tier 3 (Start Here):</b><br>' +
+      '• Local business journals<br>' +
+      '• Your own guest posts<br>' +
+      '• Partner websites<br><br>' +
+      '<b>How to Get Featured:</b><br><br>' +
+      '1. <b>Use HARO (Help A Reporter Out)</b><br>' +
+      '   • Free service<br>' +
+      '   • Respond to journalist queries<br>' +
+      '   • 3-5 pitches per week<br><br>' +
+      '2. <b>Pitch Your Own Story</b><br>' +
+      '   • Find journalists on Twitter/LinkedIn<br>' +
+      '   • Pitch unique angle or data<br>' +
+      '   • Example: "I analyzed 100 agencies..."<br><br>' +
+      '3. <b>Hire PR Firm (Year 3)</b><br>' +
+      '   • Cost: $3K-$10K/month<br>' +
+      '   • They pitch on your behalf<br>' +
+      '   • Worth it when revenue > $500K<br><br>' +
+      '<b>PR One-Sheet:</b><br>' +
+      '• Professional headshot<br>' +
+      '• Bio (100 words)<br>' +
+      '• 3-5 talk topics<br>' +
+      '• Past media features',
+      centerX + colSpacing * 0.8,
+      centerY + rowSpacing * 9.8,
+      'red',
+      340,
+      480
+    );
+    createdItems.push(mediaOutreach);
+    await delay(350);
+
+    // ===== NETWORKING STRATEGY =====
+    console.log('Creating networking strategy...');
+    const networking = await createShape(
+      MIRO_ACCESS_TOKEN,
+      MIRO_BOARD_ID,
+      '<b style="font-size:15px;">🤝 NETWORKING STRATEGY</b><br><br>' +
+      '<b>Why Network: 80% of opportunities come from relationships</b><br><br>' +
+      '<b>Online Networking (Daily):</b><br><br>' +
+      '<b>LinkedIn (30 min/day):</b><br>' +
+      '• Comment on 10-20 target profiles<br>' +
+      '• Send 5-10 connection requests<br>' +
+      '• DM 2-3 people with value (not pitch)<br>' +
+      '• Share others\' content<br><br>' +
+      '<b>Twitter/X (20 min/day):</b><br>' +
+      '• Engage with industry leaders<br>' +
+      '• Quote tweet with insights<br>' +
+      '• Build relationships publicly<br><br>' +
+      '<b>Instagram DMs (15 min/day):</b><br>' +
+      '• Reply to story mentions<br>' +
+      '• Engage with peers\' content<br>' +
+      '• Build genuine friendships<br><br>' +
+      '<b>In-Person Networking (Monthly):</b><br><br>' +
+      '<b>Events to Attend:</b><br>' +
+      '• Industry conferences (2-3/year)<br>' +
+      '• Local business meetups (1-2/month)<br>' +
+      '• Mastermind groups<br>' +
+      '• Workshops & training<br><br>' +
+      '<b>Networking Best Practices:</b><br>' +
+      '1. <b>Give First</b><br>' +
+      '   • Make intros for others<br>' +
+      '   • Share resources<br>' +
+      '   • Offer help (no strings)<br>' +
+      '2. <b>Follow Up Within 24 Hours</b><br>' +
+      '   • Send LinkedIn message<br>' +
+      '   • Reference conversation<br>' +
+      '   • Suggest next step<br>' +
+      '3. <b>Stay In Touch</b><br>' +
+      '   • Monthly check-ins<br>' +
+      '   • Share relevant content<br>' +
+      '   • Celebrate their wins',
+      centerX + colSpacing * 2.0,
+      centerY + rowSpacing * 9.8,
+      'cyan',
+      340,
+      460
+    );
+    createdItems.push(networking);
+    await delay(350);
+
+    // ===== PERSONAL BRAND BUILDING =====
+    console.log('Creating personal brand strategy...');
+    const personalBrand = await createShape(
+      MIRO_ACCESS_TOKEN,
+      MIRO_BOARD_ID,
+      '<b style="font-size:15px;">💎 PERSONAL BRAND BUILDING</b><br><br>' +
+      '<b>Your Brand = Your Business Value</b><br><br>' +
+      '<b>Brand Pillars (Choose 3-5):</b><br><br>' +
+      '<b>1. Agency Systems Expert</b><br>' +
+      '• Known for: Systemization & automation<br>' +
+      '• Content: SOPs, processes, templates<br><br>' +
+      '<b>2. Freedom Lifestyle Advocate</b><br>' +
+      '• Known for: Work-life balance<br>' +
+      '• Content: Time management, delegation<br><br>' +
+      '<b>3. Straight-Shooter</b><br>' +
+      '• Known for: Honest, no BS advice<br>' +
+      '• Content: Reality checks, truth bombs<br><br>' +
+      '<b>4. Data-Driven</b><br>' +
+      '• Known for: Metrics, numbers, proof<br>' +
+      '• Content: Case studies, analytics<br><br>' +
+      '<b>Visual Brand Identity:</b><br><br>' +
+      '<b>Colors:</b> Choose 2-3 brand colors<br>' +
+      '• Use consistently across all platforms<br>' +
+      '• Example: Navy blue + orange accent<br><br>' +
+      '<b>Fonts:</b> 2 fonts max<br>' +
+      '• Heading font (bold, attention-grabbing)<br>' +
+      '• Body font (clean, readable)<br><br>' +
+      '<b>Photography Style:</b><br>' +
+      '• Consistent filter/editing<br>' +
+      '• Similar backgrounds<br>' +
+      '• Professional but approachable<br><br>' +
+      '<b>Voice & Tone:</b><br>' +
+      '• Confident but not arrogant<br>' +
+      '• Educational but not boring<br>' +
+      '• Personal but not oversharing<br>' +
+      '• Example: "Here\'s what I learned..."<br><br>' +
+      '<b>Signature Elements:</b><br>' +
+      '• Catchphrase: "Scale smart, not hard"<br>' +
+      '• Sign-off: "Build the business that runs without you"<br>' +
+      '• Framework: Your unique acronym',
+      centerX + colSpacing * 3.2,
+      centerY + rowSpacing * 9.8,
+      'violet',
+      340,
+      480
+    );
+    createdItems.push(personalBrand);
+    await delay(350);
+
+    // ===== YEAR 2 Q1-Q4 BREAKDOWN =====
+    console.log('Creating Year 2 quarterly breakdown...');
+    const year2Quarters = await createShape(
+      MIRO_ACCESS_TOKEN,
+      MIRO_BOARD_ID,
+      '<b style="font-size:15px;">📅 YEAR 2: QUARTERLY BREAKDOWN</b><br><br>' +
+      '<b>Q1 (Months 19-21): Foundation Scale</b><br>' +
+      '• Launch #1: Group program ($8K, 15 clients = $120K)<br>' +
+      '• Start evergreen course setup<br>' +
+      '• Hire launch manager<br>' +
+      '• Build waitlist for mastermind<br>' +
+      '• Revenue goal: $120K-$150K<br><br>' +
+      '<b>Q2 (Months 22-24): Diversify</b><br>' +
+      '• Launch evergreen course ($997-$1,497)<br>' +
+      '• First mastermind cohort ($15K, 10 people = $150K)<br>' +
+      '• Scale paid ads to $3K-$5K/month<br>' +
+      '• Hire content strategist<br>' +
+      '• Revenue goal: $150K-$200K<br><br>' +
+      '<b>Q3 (Months 25-27): Optimize</b><br>' +
+      '• Launch #2: Group program ($10K, 20 clients = $200K)<br>' +
+      '• Optimize evergreen funnel<br>' +
+      '• Plan book writing (if ready)<br>' +
+      '• Apply to speak at 5-10 events<br>' +
+      '• Revenue goal: $200K-$250K<br><br>' +
+      '<b>Q4 (Months 28-30): Scale</b><br>' +
+      '• Second mastermind cohort ($20K, 12 people = $240K)<br>' +
+      '• Black Friday sale (low-ticket surge)<br>' +
+      '• Year-end push (bonus for Q1 launch)<br>' +
+      '• Plan Year 3 strategy<br>' +
+      '• Revenue goal: $240K-$300K<br><br>' +
+      '<b>Year 2 Total Revenue:</b><br>' +
+      '💰 $710K-$900K<br><br>' +
+      '<b>Team by End of Year 2:</b><br>' +
+      '• Launch Manager<br>' +
+      '• Content Strategist<br>' +
+      '• Community Manager<br>' +
+      '• Video Editor<br>' +
+      '• VA',
+      centerX - colSpacing * 2.8,
+      centerY + rowSpacing * 11.2,
+      'green',
+      340,
+      480
+    );
+    createdItems.push(year2Quarters);
+    await delay(350);
+
+    // ===== YEAR 3 QUARTERLY BREAKDOWN =====
+    console.log('Creating Year 3 quarterly breakdown...');
+    const year3Quarters = await createShape(
+      MIRO_ACCESS_TOKEN,
+      MIRO_BOARD_ID,
+      '<b style="font-size:15px;">📅 YEAR 3: QUARTERLY BREAKDOWN</b><br><br>' +
+      '<b>Q1 (Months 31-33): Premium Positioning</b><br>' +
+      '• Launch elite mastermind ($25K-$30K annual)<br>' +
+      '• Target: 15-20 members = $375K-$600K<br>' +
+      '• Start book writing process<br>' +
+      '• First speaking gigs (3-5 paid events)<br>' +
+      '• Revenue goal: $400K-$600K<br><br>' +
+      '<b>Q2 (Months 34-36): Authority Building</b><br>' +
+      '• Done-with-you packages ($50K-$75K)<br>' +
+      '• Target: 3-5 clients = $150K-$375K<br>' +
+      '• Book writing continues<br>' +
+      '• Speaking: 5-10 events<br>' +
+      '• Media features: HARO pitches<br>' +
+      '• Revenue goal: $400K-$500K<br><br>' +
+      '<b>Q3 (Months 37-39): Book Launch</b><br>' +
+      '• Publish book + launch campaign<br>' +
+      '• Book sales: $50K-$100K<br>' +
+      '• Speaking surge (book tour)<br>' +
+      '• Elite mastermind cohort 2<br>' +
+      '• Revenue goal: $450K-$600K<br><br>' +
+      '<b>Q4 (Months 40-42): Scale Leadership</b><br>' +
+      '• Year-end group program launch<br>' +
+      '• Done-with-you: 3-5 more clients<br>' +
+      '• Plan Year 4: Certification program<br>' +
+      '• Build software/SaaS roadmap<br>' +
+      '• Revenue goal: $500K-$700K<br><br>' +
+      '<b>Year 3 Total Revenue:</b><br>' +
+      '💰 $1.75M-$2.4M<br><br>' +
+      '<b>Team Expansion:</b><br>' +
+      '• COO (operations manager)<br>' +
+      '• Head of Sales<br>' +
+      '• 2-3 Coaches (deliver programs)<br>' +
+      '• Marketing Manager<br>' +
+      '• PR/Media person (contractor)',
+      centerX - colSpacing * 1.6,
+      centerY + rowSpacing * 11.2,
+      'violet',
+      340,
+      480
+    );
+    createdItems.push(year3Quarters);
+    await delay(350);
+
+    // ===== CERTIFICATION PROGRAM =====
+    console.log('Creating certification program details...');
+    const certification = await createShape(
+      MIRO_ACCESS_TOKEN,
+      MIRO_BOARD_ID,
+      '<b style="font-size:15px;">🎓 CERTIFICATION PROGRAM (Year 4+)</b><br><br>' +
+      '<b>What: Train other coaches to use YOUR method</b><br><br>' +
+      '<b>Why Build Certification:</b><br>' +
+      '• Scalable revenue (train once, sell many times)<br>' +
+      '• Network effect (certified coaches promote you)<br>' +
+      '• Additional revenue stream: $300K-$800K/year<br>' +
+      '• Market dominance (your methodology everywhere)<br><br>' +
+      '<b>Certification Structure:</b><br><br>' +
+      '<b>Program Design:</b><br>' +
+      '• 8-12 week training<br>' +
+      '• Learn your frameworks & systems<br>' +
+      '• Practice delivery & coaching<br>' +
+      '• Final exam/assessment<br>' +
+      '• Ongoing support community<br><br>' +
+      '<b>Pricing:</b><br>' +
+      '• One-time: $10K-$25K<br>' +
+      '• OR Annual license: $5K-$10K/year<br><br>' +
+      '<b>What They Get:</b><br>' +
+      '• Full curriculum (white-label)<br>' +
+      '• Marketing materials<br>' +
+      '• Sales scripts<br>' +
+      '• Your brand association<br>' +
+      '• Referrals from you<br><br>' +
+      '<b>Revenue Model Options:</b><br><br>' +
+      '<b>Option 1: One-Time Fee</b><br>' +
+      '• $15K per coach<br>' +
+      '• Train 20-40/year = $300K-$600K<br><br>' +
+      '<b>Option 2: License + Royalty</b><br>' +
+      '• $10K upfront<br>' +
+      '• + 10% of their revenue<br>' +
+      '• More aligned, higher LTV<br><br>' +
+      '<b>Ideal Certified Coach:</b><br>' +
+      '• Has audience (5K-20K)<br>' +
+      '• Wants methodology (not create own)<br>' +
+      '• Complementary niche',
+      centerX - colSpacing * 0.4,
+      centerY + rowSpacing * 11.2,
+      'yellow',
+      340,
+      460
+    );
+    createdItems.push(certification);
+    await delay(350);
+
+    // ===== SAAS/SOFTWARE STRATEGY =====
+    console.log('Creating SaaS strategy...');
+    const saasStrategy = await createShape(
+      MIRO_ACCESS_TOKEN,
+      MIRO_BOARD_ID,
+      '<b style="font-size:15px;">💻 SaaS/SOFTWARE STRATEGY (Year 4+)</b><br><br>' +
+      '<b>Why Build Software:</b><br>' +
+      '• Recurring revenue (MRR)<br>' +
+      '• Higher valuation (10x+ revenue)<br>' +
+      '• Passive income layer<br>' +
+      '• Competitive moat<br><br>' +
+      '<b>Software Ideas for Agency Coaches:</b><br><br>' +
+      '<b>1. Agency Profitability Dashboard</b><br>' +
+      '• Track revenue, expenses, profit margins<br>' +
+      '• Pricing: $49-$99/month<br>' +
+      '• Market: 50K+ agencies in US<br>' +
+      '• Revenue potential: $200K-$500K/year<br><br>' +
+      '<b>2. SOP Library & Automation</b><br>' +
+      '• Pre-built templates<br>' +
+      '• Customizable workflows<br>' +
+      '• Pricing: $97-$197/month<br>' +
+      '• Bundle with coaching<br><br>' +
+      '<b>3. Client Onboarding Platform</b><br>' +
+      '• Automated welcome sequences<br>' +
+      '• Project kick-off tools<br>' +
+      '• Pricing: $79-$149/month<br><br>' +
+      '<b>Development Approach:</b><br><br>' +
+      '<b>Don\'t Code Yourself!</b><br>' +
+      '• Hire dev team or agency<br>' +
+      '• Cost: $50K-$200K to build MVP<br>' +
+      '• Timeline: 6-12 months<br><br>' +
+      '<b>Or Partner:</b><br>' +
+      '• Find existing tool<br>' +
+      '• White-label it<br>' +
+      '• Revenue share: 20-40%<br><br>' +
+      '<b>Launch Strategy:</b><br>' +
+      '• Beta to existing clients (free)<br>' +
+      '• Get feedback & testimonials<br>' +
+      '• Public launch with case studies<br>' +
+      '• Bundle with high-ticket offers<br><br>' +
+      '<b>Goal:</b> $200K-$800K ARR by Year 5',
+      centerX + colSpacing * 0.8,
+      centerY + rowSpacing * 11.2,
+      'blue',
+      340,
+      480
+    );
+    createdItems.push(saasStrategy);
+    await delay(350);
+
+    // ===== LIVE EVENTS STRATEGY =====
+    console.log('Creating live events strategy...');
+    const liveEvents = await createShape(
+      MIRO_ACCESS_TOKEN,
+      MIRO_BOARD_ID,
+      '<b style="font-size:15px;">🎪 LIVE EVENTS STRATEGY (Year 4-5)</b><br><br>' +
+      '<b>Why Host Events:</b><br>' +
+      '• High revenue in short time<br>' +
+      '• Deepen relationships<br>' +
+      '• Back-of-room sales<br>' +
+      '• Content creation goldmine<br>' +
+      '• Network building<br><br>' +
+      '<b>Event Types:</b><br><br>' +
+      '<b>1. Annual Conference</b><br>' +
+      '• 2-3 days<br>' +
+      '• 300-500 attendees<br>' +
+      '• Ticket: $997-$2,497<br>' +
+      '• Revenue: $300K-$1.2M<br>' +
+      '• Includes: Speakers, workshops, networking<br><br>' +
+      '<b>2. Quarterly Workshops</b><br>' +
+      '• 1 day intensive<br>' +
+      '• 30-50 attendees<br>' +
+      '• Ticket: $497-$997<br>' +
+      '• Revenue: $15K-$50K per event<br>' +
+      '• Hands-on, tactical training<br><br>' +
+      '<b>3. VIP Mastermind Retreats</b><br>' +
+      '• 3-4 days<br>' +
+      '• 10-20 attendees (invite-only)<br>' +
+      '• Price: $5K-$15K<br>' +
+      '• Revenue: $50K-$300K<br>' +
+      '• Luxury venue, exclusive access<br><br>' +
+      '<b>Event Planning Timeline:</b><br><br>' +
+      '<b>6 Months Before:</b><br>' +
+      '• Book venue<br>' +
+      '• Confirm speakers<br>' +
+      '• Create event page<br><br>' +
+      '<b>3 Months Before:</b><br>' +
+      '• Launch ticket sales<br>' +
+      '• Email marketing campaign<br>' +
+      '• Early bird pricing<br><br>' +
+      '<b>1 Month Before:</b><br>' +
+      '• Final push<br>' +
+      '• Confirm logistics<br>' +
+      '• Prepare materials<br><br>' +
+      '<b>Event Monetization:</b><br>' +
+      '• Ticket sales (primary)<br>' +
+      '• Sponsors ($5K-$50K each)<br>' +
+      '• Back-of-room sales<br>' +
+      '• VIP upgrades<br>' +
+      '• Recording sales',
+      centerX + colSpacing * 2.0,
+      centerY + rowSpacing * 11.2,
+      'pink',
+      340,
+      480
+    );
+    createdItems.push(liveEvents);
+    await delay(350);
+
+    // ===== EXIT STRATEGY =====
+    console.log('Creating exit strategy...');
+    const exitStrategy = await createShape(
+      MIRO_ACCESS_TOKEN,
+      MIRO_BOARD_ID,
+      '<b style="font-size:15px;">🚀 EXIT STRATEGY (Year 5+)</b><br><br>' +
+      '<b>3 Potential Paths:</b><br><br>' +
+      '<b>Path 1: SELL THE BUSINESS</b><br><br>' +
+      '<b>Valuation Multiples:</b><br>' +
+      '• Coaching business: 2-4x annual profit<br>' +
+      '• With software: 5-10x annual revenue<br>' +
+      '• Example: $3M profit = $6M-$12M sale<br><br>' +
+      '<b>Who Buys:</b><br>' +
+      '• Private equity firms<br>' +
+      '• Larger education companies<br>' +
+      '• Strategic acquirers<br><br>' +
+      '<b>Preparation (12-24 months):</b><br>' +
+      '• Remove yourself from operations<br>' +
+      '• Build systems & team<br>' +
+      '• Clean financials<br>' +
+      '• Documented processes<br><br>' +
+      '<b>Path 2: SCALE TO $10M+</b><br><br>' +
+      '<b>Growth Levers:</b><br>' +
+      '• Certification (train 100+ coaches)<br>' +
+      '• Software (10K+ customers)<br>' +
+      '• Events (1K+ attendees)<br>' +
+      '• Multiple brands<br><br>' +
+      '<b>Team Required:</b><br>' +
+      '• 20-50 employees<br>' +
+      '• C-suite (CEO, COO, CFO, CMO)<br>' +
+      '• Department heads<br><br>' +
+      '<b>Path 3: LIFESTYLE BUSINESS</b><br><br>' +
+      '<b>Maintain $2M-$5M/year:</b><br>' +
+      '• Work 10-15 hours/week<br>' +
+      '• Keep it small & profitable<br>' +
+      '• Focus on freedom<br>' +
+      '• Enjoy the lifestyle<br><br>' +
+      '<b>Structure:</b><br>' +
+      '• Elite mastermind (20 members)<br>' +
+      '• Done-with-you (5-10 clients)<br>' +
+      '• Passive products<br>' +
+      '• Small team (5-10 people)<br><br>' +
+      '<b>Decision Timeline:</b><br>' +
+      'Year 3: Decide which path<br>' +
+      'Year 4-5: Execute strategy',
+      centerX + colSpacing * 3.2,
+      centerY + rowSpacing * 11.2,
+      'red',
+      340,
+      480
+    );
+    createdItems.push(exitStrategy);
+    await delay(350);
+
     console.log('\n✅ Ultimate mind map created successfully!');
     console.log(`📍 Total SHAPES created: ${createdItems.length}`);
     console.log(`🔗 View your board at: https://miro.com/app/board/${MIRO_BOARD_ID}/`);

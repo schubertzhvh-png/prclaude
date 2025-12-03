@@ -1,6 +1,6 @@
 # 🚀 Cold Outreach Platform
 
-Личное веб-приложение для cold outreach в Instagram и X/Twitter. Аналог Cold DMs, но для single-user без регистрации и оплаты.
+Личное веб-приложение для cold outreach в Instagram. Аналог Cold DMs, но для single-user без регистрации и оплаты.
 
 ---
 
@@ -10,7 +10,7 @@
 
 ✅ Управление лидами и кампаниями
 ✅ Автоматические последовательности сообщений
-✅ Instagram и X/Twitter интеграция
+✅ Instagram интеграция (импорт, отправка DM)
 ✅ AI-генерация персонализированных сообщений
 ✅ Inbox/CRM для отслеживания диалогов
 ✅ Система очередей с rate limiting

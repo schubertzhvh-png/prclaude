@@ -15,7 +15,7 @@ Future: JWT tokens в header `Authorization: Bearer <token>`
 Получить список кампаний
 
 **Query параметры:**
-- `platform` (optional): `instagram` | `x`
+- `platform` (optional): `instagram`
 - `status` (optional): `draft` | `active` | `paused` | `completed`
 - `limit` (optional): number, default 100
 - `offset` (optional): number, default 0
@@ -113,7 +113,7 @@ Future: JWT tokens в header `Authorization: Bearer <token>`
 **Query параметры:**
 - `campaignId` (optional): uuid
 - `status` (optional): `new` | `messaged` | `replied` | `booked` | `lost`
-- `platform` (optional): `instagram` | `x`
+- `platform` (optional): `instagram`
 - `source` (optional): `followers` | `likes` | `comments` | `manual` | `import`
 - `search` (optional): поиск по username/name
 - `limit`, `offset`

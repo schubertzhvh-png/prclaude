@@ -15,7 +15,6 @@ datasource db {
 
 enum Platform {
   instagram
-  x
 }
 
 enum CampaignStatus {
@@ -53,7 +52,6 @@ enum MessageJobStatus {
 enum MessageChannel {
   manual
   instagram_auto
-  x_auto
 }
 
 enum ConversationDirection {

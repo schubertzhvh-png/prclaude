@@ -30,7 +30,7 @@ CREATE INDEX idx_user_email ON "User"(email);
 ### 2. Campaign
 
 ```sql
-CREATE TYPE platform_enum AS ENUM ('instagram', 'x');
+CREATE TYPE platform_enum AS ENUM ('instagram');
 CREATE TYPE campaign_status_enum AS ENUM ('draft', 'active', 'paused', 'completed');
 
 CREATE TABLE "Campaign" (
@@ -58,7 +58,7 @@ CREATE INDEX idx_campaign_created_at ON "Campaign"(created_at DESC);
 - `user_id` - FK к User (nullable на MVP)
 - `name` - Название кампании
 - `description` - Описание
-- `platform` - Платформа (instagram | x)
+- `platform` - Платформа (только instagram)
 - `niche` - Ниша (для контекста)
 - `offer` - Описание оффера
 - `ai_context` - Контекст для AI генерации
@@ -185,7 +185,7 @@ CREATE INDEX idx_sequence_step_index ON "SequenceStep"(step_index);
 
 ```sql
 CREATE TYPE message_job_status_enum AS ENUM ('pending', 'sent', 'failed', 'cancelled');
-CREATE TYPE message_channel_enum AS ENUM ('manual', 'instagram_auto', 'x_auto');
+CREATE TYPE message_channel_enum AS ENUM ('manual', 'instagram_auto');
 
 CREATE TABLE "MessageJob" (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -221,7 +221,7 @@ CREATE INDEX idx_message_job_step_index ON "MessageJob"(step_index);
 - `sent_at` - Фактическое время отправки
 - `status` - Статус (pending | sent | failed | cancelled)
 - `error_message` - Сообщение об ошибке (если failed)
-- `channel` - Канал (manual | instagram_auto | x_auto)
+- `channel` - Канал (manual | instagram_auto)
 - `retry_count` - Количество попыток повтора
 - `created_at` / `updated_at` - Временные метки
 

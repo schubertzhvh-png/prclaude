@@ -1,0 +1,140 @@
+/**
+ * BIGGA v2.0 - Content Styles for Axiome
+ */
+
+/* Historian Badge */
+.bigga-historian-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  z-index: 1000;
+  min-width: 200px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.bigga-badge-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.bigga-username {
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.bigga-followers {
+  font-size: 11px;
+  color: #aaa;
+}
+
+.bigga-badge-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.bigga-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bigga-stat-label {
+  color: #888;
+  font-size: 11px;
+}
+
+.bigga-stat-value {
+  font-weight: bold;
+  font-size: 12px;
+  color: #4CAF50;
+}
+
+.bigga-mentions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.bigga-mention-yes {
+  color: #4CAF50;
+  font-size: 11px;
+}
+
+.bigga-mention-no {
+  color: #f44336;
+  font-size: 11px;
+}
+
+/* Highlighted cards */
+.bigga-highlighted {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.bigga-highlighted:hover {
+  transform: translateY(-2px);
+}
+
+/* Loading indicator */
+.bigga-loading {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: bigga-spin 0.8s linear infinite;
+}
+
+@keyframes bigga-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .bigga-historian-badge {
+    position: static;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+}
+
+/* Tooltip for additional info */
+.bigga-tooltip {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.95);
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  z-index: 10000;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* WhiteList special styling */
+.bigga-whitelisted .bigga-historian-badge {
+  background: linear-gradient(135deg, rgba(0, 255, 0, 0.2), rgba(0, 200, 0, 0.2));
+  border-color: #00FF00;
+}
+
+.bigga-whitelisted .bigga-username::before {
+  content: "⭐ ";
+  color: #FFD700;
+}

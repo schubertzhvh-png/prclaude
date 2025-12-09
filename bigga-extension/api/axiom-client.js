@@ -133,28 +133,60 @@ class AxiomAPIClient {
   }
 
   /**
+   * Get token info by token address
+   * Try different endpoints to find the token
+   */
+  async getTokenInfo(tokenAddress) {
+    const cacheKey = `token-${tokenAddress}`;
+
+    const cached = this.getFromCache(cacheKey);
+    if (cached) return cached;
+
+    try {
+      // Try different endpoints
+      const endpoints = [
+        `${this.baseURL}/token-info?tokenAddress=${tokenAddress}`,
+        `${this.baseURL}/pair-info?tokenAddress=${tokenAddress}`,
+        `${this.baseURL}/search?q=${tokenAddress}`
+      ];
+
+      for (const endpoint of endpoints) {
+        try {
+          const response = await fetch(endpoint);
+          if (response.ok) {
+            const data = await response.json();
+
+            // If search returns array, take first result
+            const tokenData = Array.isArray(data) ? data[0] : data;
+
+            if (tokenData) {
+              this.setCache(cacheKey, tokenData);
+              return tokenData;
+            }
+          }
+        } catch (e) {
+          continue;
+        }
+      }
+
+      return null;
+    } catch (error) {
+      console.error('Error fetching token info:', error);
+      return null;
+    }
+  }
+
+  /**
    * Extract Twitter link from pair data
-   * Structure depends on actual API response
+   * Based on actual Axiom API response structure
    */
   extractTwitterLink(pairData) {
-    // Common field names for social links
-    const possibleFields = [
-      'twitter',
-      'twitterUrl',
-      'socials.twitter',
-      'links.twitter',
-      'social.twitter',
-      'creator.twitter'
-    ];
-
-    for (const field of possibleFields) {
-      const value = this.getNestedValue(pairData, field);
-      if (value && (value.includes('twitter.com') || value.includes('x.com'))) {
-        return value;
-      }
+    // Direct field (confirmed from API response)
+    if (pairData.twitter) {
+      return pairData.twitter;
     }
 
-    // Search all fields for Twitter URLs
+    // Fallback: search in all fields
     const flattenedData = JSON.stringify(pairData);
     const twitterMatch = flattenedData.match(/(https?:\/\/)?(www\.)?(twitter|x)\.com\/[a-zA-Z0-9_]+/);
 
@@ -162,38 +194,50 @@ class AxiomAPIClient {
   }
 
   /**
-   * Extract token info from pair data
+   * Extract token info from Axiom API response
+   * Based on actual API structure
    */
   extractTokenInfo(pairData) {
+    if (!pairData) return null;
+
     return {
-      name: this.getNestedValue(pairData, 'name') ||
-            this.getNestedValue(pairData, 'tokenName') ||
-            this.getNestedValue(pairData, 'baseToken.name'),
+      // Basic info
+      name: pairData.tokenName || pairData.name,
+      ticker: pairData.tokenTicker || pairData.symbol || pairData.ticker,
 
-      ticker: this.getNestedValue(pairData, 'symbol') ||
-              this.getNestedValue(pairData, 'ticker') ||
-              this.getNestedValue(pairData, 'baseToken.symbol'),
+      // Addresses
+      tokenAddress: pairData.tokenAddress,
+      pairAddress: pairData.pairAddress,
 
-      address: this.getNestedValue(pairData, 'address') ||
-               this.getNestedValue(pairData, 'pairAddress') ||
-               this.getNestedValue(pairData, 'baseToken.address'),
+      // Market data
+      priceUsd: parseFloat(pairData.priceUsd) || 0,
+      liquidity: pairData.initialLiquiditySol || 0,
+      liquidityUsd: pairData.liquidityUsd,
 
-      marketCap: this.getNestedValue(pairData, 'marketCap') ||
-                 this.getNestedValue(pairData, 'fdv') ||
-                 this.getNestedValue(pairData, 'fullyDilutedValuation'),
+      // Market cap (may need calculation)
+      marketCap: pairData.marketCap || pairData.fdv || null,
 
-      liquidity: this.getNestedValue(pairData, 'liquidity') ||
-                 this.getNestedValue(pairData, 'liquidityUsd'),
+      // Social links
+      twitter: pairData.twitter,
+      website: pairData.website,
+      discordUrl: pairData.discordUrl,
 
-      twitterLink: this.extractTwitterLink(pairData),
+      // Metadata
+      creator: pairData.creator,
+      protocol: pairData.protocol,
+      lpBurned: pairData.lpBurned,
 
-      creator: this.getNestedValue(pairData, 'creator') ||
-               this.getNestedValue(pairData, 'deployer') ||
-               this.getNestedValue(pairData, 'owner'),
+      // Timestamps
+      createdAt: pairData.createdAt || pairData.openTrading,
+      timestamp: pairData.createdAt,
 
-      timestamp: this.getNestedValue(pairData, 'createdAt') ||
-                 this.getNestedValue(pairData, 'timestamp') ||
-                 this.getNestedValue(pairData, 'launchedAt')
+      // Trading stats
+      txns: pairData.txns,
+      volume: pairData.volume,
+
+      // Flags
+      isWatchListed: pairData.isWatchListed,
+      isMayhem: pairData.isMayhem
     };
   }
 

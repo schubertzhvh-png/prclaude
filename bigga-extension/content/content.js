@@ -1,14 +1,18 @@
 /**
- * BIGGA v2.0 - Content Script for Axiom
- * Highlights tokens based on historian statistics
+ * BIGGA v2.0 - Content Script for Axiom (Hybrid HTML + API approach)
+ * Finds tokens on page, fetches data via Axiom API, analyzes historians via Twitter
  */
 
 console.log('🎯 BIGGA v2.0 loaded on Axiom');
 
+// Import API client (will be loaded via background)
+let axiomAPI = null;
+
 // State
 let colorSettings = {};
-let whiteList = [];
+let whiteList = {};
 let historiansCache = {};
+let processedTokens = new Set();
 
 /**
  * Load settings from chrome.storage
@@ -33,70 +37,107 @@ async function loadSettings() {
 }
 
 /**
- * Get color based on market cap
+ * Extract Solana address from element or text
+ * Solana addresses are base58 encoded, ~44 chars, start with letter
  */
-function getColorForMarketCap(marketCap) {
-  // Check WhiteList first (highest priority)
-  // (Will be checked separately for specific historians)
+function extractSolanaAddress(element) {
+  // Pattern for Solana address: 32-44 chars, base58 (no 0OIl)
+  const solanaPattern = /[1-9A-HJ-NP-Za-km-z]{32,44}/g;
 
-  // Sort thresholds descending
-  const thresholds = Object.keys(colorSettings)
-    .map(Number)
-    .sort((a, b) => b - a);
-
-  for (const threshold of thresholds) {
-    if (marketCap >= threshold) {
-      return colorSettings[threshold];
+  // Check data attributes first
+  const dataAttrs = ['data-address', 'data-token-address', 'data-pair-address', 'data-ca'];
+  for (const attr of dataAttrs) {
+    const value = element.getAttribute(attr);
+    if (value && solanaPattern.test(value)) {
+      return value;
     }
   }
 
-  return null; // No highlighting
-}
+  // Check element text content
+  const text = element.textContent;
+  const matches = text.match(solanaPattern);
 
-/**
- * Check if username is in whitelist
- */
-function isWhitelisted(username) {
-  return whiteList.usernames.some(u => u.toLowerCase() === username.toLowerCase());
-}
-
-/**
- * Extract token data from card element
- */
-function extractTokenData(card) {
-  try {
-    // This will depend on Axiom's HTML structure
-    // Adjust selectors based on actual page structure
-
-    // Example selectors (need to be verified)
-    const nameElement = card.querySelector('[data-token-name]') || card.querySelector('.token-name');
-    const tickerElement = card.querySelector('[data-token-ticker]') || card.querySelector('.token-ticker');
-    const addressElement = card.querySelector('[data-token-address]') || card.querySelector('.token-address');
-    const twitterLinkElement = card.querySelector('a[href*="twitter.com"], a[href*="x.com"]');
-
-    const coinName = nameElement?.textContent?.trim();
-    const coinTicker = tickerElement?.textContent?.trim();
-    const coinAddress = addressElement?.textContent?.trim() || addressElement?.getAttribute('data-address');
-    const twitterLink = twitterLinkElement?.href;
-
-    return {
-      coinName,
-      coinTicker,
-      coinAddress,
-      twitterLink,
-      cardElement: card
-    };
-  } catch (error) {
-    console.error('Error extracting token data:', error);
-    return null;
+  if (matches && matches.length > 0) {
+    // Return longest match (most likely to be address)
+    return matches.sort((a, b) => b.length - a.length)[0];
   }
+
+  // Check all child elements
+  const allText = element.innerText || element.textContent;
+  const allMatches = allText.match(solanaPattern);
+
+  if (allMatches && allMatches.length > 0) {
+    return allMatches.sort((a, b) => b.length - a.length)[0];
+  }
+
+  return null;
 }
 
 /**
- * Query historian data from background script
+ * Find token cards on Axiom page
+ * Uses flexible selectors to work with dynamic structure
+ */
+function findTokenCards() {
+  const cards = [];
+
+  // Strategy 1: Look for elements with Solana addresses
+  const allElements = document.querySelectorAll('div, article, section, [class*="card"], [class*="token"], [class*="pair"]');
+
+  allElements.forEach(el => {
+    // Skip if already processed
+    if (el.hasAttribute('data-bigga-processed')) return;
+
+    // Check if element contains Solana address
+    const address = extractSolanaAddress(el);
+
+    if (address) {
+      // Check if this looks like a token card (has name, ticker, or links)
+      const hasTokenName = el.querySelector('[class*="name"], [class*="title"], h1, h2, h3');
+      const hasSocialLinks = el.querySelector('a[href*="twitter"], a[href*="x.com"], a[href*="telegram"]');
+
+      if (hasTokenName || hasSocialLinks) {
+        cards.push({
+          element: el,
+          address: address,
+          priority: (hasTokenName ? 1 : 0) + (hasSocialLinks ? 1 : 0)
+        });
+      }
+    }
+  });
+
+  // Sort by priority (more indicators = higher priority)
+  return cards.sort((a, b) => b.priority - a.priority).map(c => ({
+    element: c.element,
+    address: c.address
+  }));
+}
+
+/**
+ * Get token data from Axiom API via background script
+ */
+async function getTokenDataFromAPI(address) {
+  return new Promise((resolve) => {
+    chrome.runtime.sendMessage(
+      {
+        action: 'getAxiomTokenData',
+        address: address
+      },
+      (response) => {
+        if (response && response.success && response.data) {
+          resolve(response.data);
+        } else {
+          resolve(null);
+        }
+      }
+    );
+  });
+}
+
+/**
+ * Get historian data from background (cached or fetch)
  */
 async function getHistorianData(username) {
-  // Check cache first
+  // Check local cache first
   if (historiansCache[username]) {
     return historiansCache[username];
   }
@@ -117,9 +158,53 @@ async function getHistorianData(username) {
 }
 
 /**
- * Create historian badge overlay
+ * Extract username from Twitter URL
  */
-function createHistorianBadge(historian, mentionData) {
+function extractTwitterUsername(url) {
+  if (!url) return null;
+
+  const match = url.match(/(?:twitter|x)\.com\/([^\/\?]+)/);
+  return match ? match[1] : null;
+}
+
+/**
+ * Get color based on market cap or whitelist
+ */
+function getHighlightColor(historian) {
+  if (!historian) return null;
+
+  // Check whitelist first
+  if (isWhitelisted(historian.username)) {
+    return whiteList.highlightColor;
+  }
+
+  // Check color rules based on Last 3 Tokens Average
+  const marketCap = historian.last3TokensAvg || 0;
+
+  const thresholds = Object.keys(colorSettings)
+    .map(Number)
+    .sort((a, b) => b - a);
+
+  for (const threshold of thresholds) {
+    if (marketCap >= threshold) {
+      return colorSettings[threshold];
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Check if username is in whitelist
+ */
+function isWhitelisted(username) {
+  return whiteList.usernames.some(u => u.toLowerCase() === username.toLowerCase());
+}
+
+/**
+ * Create historian badge
+ */
+function createHistorianBadge(historian, tokenData) {
   const badge = document.createElement('div');
   badge.className = 'bigga-historian-badge';
 
@@ -135,9 +220,11 @@ function createHistorianBadge(historian, mentionData) {
     ? `$${(historian.last3TokensAvg / 1000).toFixed(1)}K`
     : `$${historian.last3TokensAvg}`;
 
+  const isWhitelistedUser = isWhitelisted(historian.username);
+
   badge.innerHTML = `
     <div class="bigga-badge-header">
-      <span class="bigga-username">👤 @${historian.username}</span>
+      <span class="bigga-username">${isWhitelistedUser ? '⭐ ' : ''}👤 @${historian.username}</span>
       <span class="bigga-followers">(${followersFormatted} followers)</span>
     </div>
     <div class="bigga-badge-stats">
@@ -154,12 +241,6 @@ function createHistorianBadge(historian, mentionData) {
         <span class="bigga-stat-value">${last3Formatted}</span>
       </div>
     </div>
-    ${mentionData ? `
-      <div class="bigga-mentions">
-        ${mentionData.mentionsTicker ? '<span class="bigga-mention-yes">✅ Ticker mentioned</span>' : '<span class="bigga-mention-no">❌ Ticker not mentioned</span>'}
-        ${mentionData.mentionsName ? '<span class="bigga-mention-yes">✅ Name mentioned</span>' : '<span class="bigga-mention-no">❌ Name not mentioned</span>'}
-      </div>
-    ` : ''}
   `;
 
   return badge;
@@ -168,131 +249,98 @@ function createHistorianBadge(historian, mentionData) {
 /**
  * Apply highlighting to token card
  */
-function highlightCard(card, color, historian) {
-  // Apply border color
+function highlightCard(card, color) {
   card.style.border = `3px solid ${color}`;
-  card.style.boxShadow = `0 0 10px ${color}80`;
+  card.style.boxShadow = `0 0 15px ${color}80`;
+  card.style.transition = 'all 0.3s ease';
 
-  // Highlight name and ticker
-  const nameElement = card.querySelector('[data-token-name]') || card.querySelector('.token-name');
-  const tickerElement = card.querySelector('[data-token-ticker]') || card.querySelector('.token-ticker');
-
-  if (nameElement) {
-    nameElement.style.color = color;
-    nameElement.style.fontWeight = 'bold';
-  }
-
-  if (tickerElement) {
-    tickerElement.style.color = color;
-    tickerElement.style.fontWeight = 'bold';
-  }
-
-  // Add class for tracking
   card.classList.add('bigga-highlighted');
-  card.setAttribute('data-bigga-historian', historian.username);
 }
 
 /**
  * Process single token card
  */
-async function processTokenCard(card) {
+async function processTokenCard(cardData) {
+  const { element, address } = cardData;
+
   // Skip if already processed
-  if (card.classList.contains('bigga-processed')) {
+  if (processedTokens.has(address)) {
     return;
   }
 
-  const tokenData = extractTokenData(card);
+  console.log(`🔍 Processing token: ${address.substring(0, 8)}...`);
 
-  if (!tokenData || !tokenData.twitterLink) {
-    return;
-  }
+  // Mark as processing
+  element.setAttribute('data-bigga-processed', 'true');
+  processedTokens.add(address);
 
-  // Extract username from Twitter link
-  const usernameMatch = tokenData.twitterLink.match(/(?:twitter|x)\.com\/([^\/]+)/);
-  if (!usernameMatch) {
-    return;
-  }
+  try {
+    // Step 1: Get token data from Axiom API
+    const tokenData = await getTokenDataFromAPI(address);
 
-  const username = usernameMatch[1];
-
-  // Get historian data
-  const historian = await getHistorianData(username);
-
-  if (!historian) {
-    // Not in database yet - will be scraped by background script
-    card.classList.add('bigga-processed');
-    return;
-  }
-
-  // Determine color
-  let highlightColor;
-
-  if (isWhitelisted(username)) {
-    highlightColor = whiteList.highlightColor;
-  } else {
-    highlightColor = getColorForMarketCap(historian.last3TokensAvg);
-  }
-
-  if (highlightColor) {
-    highlightCard(card, highlightColor, historian);
-  }
-
-  // Add historian badge
-  const badge = createHistorianBadge(historian, null);
-
-  // Insert badge at top of card
-  card.style.position = 'relative';
-  card.insertBefore(badge, card.firstChild);
-
-  card.classList.add('bigga-processed');
-
-  console.log(`✅ Processed token: ${tokenData.coinName} by @${username}`);
-}
-
-/**
- * Find all token cards on page
- */
-function findTokenCards() {
-  // Adjust selector based on Axiom's actual structure
-  // Common patterns:
-  const selectors = [
-    '[data-token-card]',
-    '.token-card',
-    '.coin-card',
-    '[class*="TokenCard"]',
-    '[class*="CoinCard"]'
-  ];
-
-  for (const selector of selectors) {
-    const cards = document.querySelectorAll(selector);
-    if (cards.length > 0) {
-      return Array.from(cards);
+    if (!tokenData) {
+      console.warn(`⚠️ No API data for ${address}`);
+      return;
     }
-  }
 
-  // Fallback: find by structure
-  // Look for elements that contain both token info and Twitter links
-  const allLinks = document.querySelectorAll('a[href*="twitter.com"], a[href*="x.com"]');
-  const cards = [];
+    console.log(`✅ Got token data:`, tokenData.name || tokenData.ticker);
 
-  allLinks.forEach(link => {
-    // Find parent container (likely the card)
-    let parent = link.parentElement;
-    let depth = 0;
+    // Step 2: Check if token has Twitter link
+    if (!tokenData.twitter) {
+      console.log(`ℹ️ No Twitter link for ${tokenData.name || address}`);
+      return;
+    }
 
-    while (parent && depth < 5) {
-      if (parent.querySelector('.token-name, [data-token-name]')) {
-        if (!cards.includes(parent)) {
-          cards.push(parent);
+    // Step 3: Extract Twitter username
+    const twitterUsername = extractTwitterUsername(tokenData.twitter);
+
+    if (!twitterUsername) {
+      console.warn(`⚠️ Could not extract username from ${tokenData.twitter}`);
+      return;
+    }
+
+    // Step 4: Get historian data
+    const historian = await getHistorianData(twitterUsername);
+
+    if (!historian) {
+      console.log(`ℹ️ No historian data for @${twitterUsername} yet`);
+
+      // Trigger scraping in background
+      chrome.runtime.sendMessage({
+        action: 'scrapeTwitterAndAddToken',
+        twitterUrl: tokenData.twitter,
+        tokenData: {
+          coinAddress: tokenData.tokenAddress || address,
+          coinName: tokenData.name,
+          coinTicker: tokenData.ticker,
+          tweetUrl: tokenData.twitter,
+          maxMarketCap: tokenData.marketCap || 0
         }
-        break;
-      }
-      parent = parent.parentElement;
-      depth++;
-    }
-  });
+      });
 
-  return cards;
+      return;
+    }
+
+    console.log(`📊 Historian @${historian.username}: ${historian.tokens.length} tokens, Last 3 avg: $${historian.last3TokensAvg}`);
+
+    // Step 5: Determine highlight color
+    const highlightColor = getHighlightColor(historian);
+
+    if (highlightColor) {
+      highlightCard(element, highlightColor);
+      console.log(`🎨 Highlighted with color: ${highlightColor}`);
+    }
+
+    // Step 6: Add badge
+    const badge = createHistorianBadge(historian, tokenData);
+    element.style.position = 'relative';
+    element.insertBefore(badge, element.firstChild);
+
+    console.log(`✅ Processed token: ${tokenData.name} by @${historian.username}`);
+
+  } catch (error) {
+    console.error(`❌ Error processing token ${address}:`, error);
+  }
 }
 
 /**
@@ -301,23 +349,26 @@ function findTokenCards() {
 async function processAllTokens() {
   const cards = findTokenCards();
 
-  console.log(`🔍 Found ${cards.length} token cards on Axiom`);
+  console.log(`🔍 Found ${cards.length} potential token cards`);
 
+  // Process cards with delay to avoid rate limiting
   for (const card of cards) {
     await processTokenCard(card);
+    // Small delay between cards
+    await new Promise(resolve => setTimeout(resolve, 100));
   }
 }
 
 /**
- * Observe page for new tokens (SPA navigation)
+ * Observe page for changes
  */
 function observePageChanges() {
   const observer = new MutationObserver((mutations) => {
-    // Debounce: wait for multiple mutations
+    // Debounce
     clearTimeout(observer.timer);
     observer.timer = setTimeout(() => {
       processAllTokens();
-    }, 500);
+    }, 1000);
   });
 
   observer.observe(document.body, {
@@ -329,45 +380,54 @@ function observePageChanges() {
 }
 
 /**
- * Initialize content script
+ * Listen for settings updates
  */
-async function init() {
-  console.log('🚀 Initializing BIGGA v2.0...');
-
-  await loadSettings();
-
-  // Process existing tokens
-  await processAllTokens();
-
-  // Observe for new tokens
-  observePageChanges();
-
-  // Re-process every 10 seconds (in case of missed mutations)
-  setInterval(processAllTokens, 10000);
-
-  console.log('✅ BIGGA v2.0 initialized');
-}
-
-// Listen for settings updates
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'settingsUpdated') {
     loadSettings().then(() => {
       // Clear cache and re-process
       historiansCache = {};
-      document.querySelectorAll('.bigga-processed').forEach(card => {
-        card.classList.remove('bigga-processed', 'bigga-highlighted');
-        card.style.border = '';
-        card.style.boxShadow = '';
-        const badge = card.querySelector('.bigga-historian-badge');
-        if (badge) badge.remove();
+      processedTokens.clear();
+
+      // Remove existing highlights
+      document.querySelectorAll('.bigga-highlighted').forEach(el => {
+        el.style.border = '';
+        el.style.boxShadow = '';
+        el.classList.remove('bigga-highlighted');
       });
 
+      // Remove badges
+      document.querySelectorAll('.bigga-historian-badge').forEach(badge => {
+        badge.remove();
+      });
+
+      // Re-process
       processAllTokens();
     });
 
     sendResponse({ success: true });
   }
 });
+
+/**
+ * Initialize
+ */
+async function init() {
+  console.log('🚀 Initializing BIGGA v2.0...');
+
+  await loadSettings();
+
+  // Initial processing
+  await processAllTokens();
+
+  // Observe for changes
+  observePageChanges();
+
+  // Re-process every 30 seconds
+  setInterval(processAllTokens, 30000);
+
+  console.log('✅ BIGGA v2.0 initialized');
+}
 
 // Start when DOM is ready
 if (document.readyState === 'loading') {

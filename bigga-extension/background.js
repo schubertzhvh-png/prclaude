@@ -5,8 +5,10 @@
 
 import db from './storage/database.js';
 import TwitterScraper from './scraper/twitter-scraper.js';
+import AxiomAPIClient from './api/axiom-client.js';
 
 const scraper = new TwitterScraper();
+const axiomAPI = new AxiomAPIClient();
 
 console.log('🎯 BIGGA v2.0 Background Service Worker started');
 
@@ -86,6 +88,55 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           sendResponse({ success: true, data: tweetData });
           break;
 
+        case 'getAxiomTokenData':
+          // Get token data from Axiom API
+          const tokenData = await axiomAPI.getTokenInfo(message.address);
+          if (tokenData) {
+            const extracted = axiomAPI.extractTokenInfo(tokenData);
+            sendResponse({ success: true, data: extracted });
+          } else {
+            // Try pair address endpoint
+            const pairData = await axiomAPI.getPairInfo(message.address);
+            if (pairData) {
+              const extracted = axiomAPI.extractTokenInfo(pairData);
+              sendResponse({ success: true, data: extracted });
+            } else {
+              sendResponse({ success: false, error: 'Token not found' });
+            }
+          }
+          break;
+
+        case 'scrapeTwitterAndAddToken':
+          // Combined: scrape Twitter + add token to database
+          const twitterUrl = message.twitterUrl;
+          const tokenInfo = message.tokenData;
+
+          // Extract username from Twitter URL
+          const usernameMatch = twitterUrl.match(/(?:twitter|x)\.com\/([^\/\?]+)/);
+          if (usernameMatch) {
+            const username = usernameMatch[1];
+
+            // Scrape Twitter profile
+            const profile = await scraper.scrapeProfile(username);
+
+            if (profile) {
+              // Add token to database
+              await db.addToken(username, {
+                ...tokenInfo,
+                historianFollowers: profile.followers
+              });
+
+              console.log(`✅ Added token ${tokenInfo.coinTicker} by @${username} to database`);
+              sendResponse({ success: true, data: { username, followers: profile.followers } });
+            } else {
+              console.warn(`⚠️ Failed to scrape Twitter profile for @${username}`);
+              sendResponse({ success: false, error: 'Failed to scrape Twitter' });
+            }
+          } else {
+            sendResponse({ success: false, error: 'Invalid Twitter URL' });
+          }
+          break;
+
         case 'addToken':
           await db.addToken(message.historianUsername, message.tokenData);
           sendResponse({ success: true });
@@ -109,7 +160,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         case 'updateSettings':
           chrome.storage.local.set(message.settings, () => {
             // Notify all content scripts
-            chrome.tabs.query({ url: 'https://axiome.io/*' }, (tabs) => {
+            chrome.tabs.query({ url: ['https://axiom.trade/*', 'https://axiom.trading/*', 'https://axiome.io/*'] }, (tabs) => {
               tabs.forEach(tab => {
                 chrome.tabs.sendMessage(tab.id, { action: 'settingsUpdated' });
               });

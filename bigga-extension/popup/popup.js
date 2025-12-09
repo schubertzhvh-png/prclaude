@@ -207,7 +207,7 @@ async function loadStatistics() {
 
   chrome.runtime.sendMessage({ action: 'getTopHistorians', limit: 10 }, (response) => {
     if (!response.success || !response.data || response.data.length === 0) {
-      container.innerHTML = '<p class="empty-state">No data yet. Start analyzing tokens on Axiome!</p>';
+      container.innerHTML = '<p class="empty-state">No data yet. Start analyzing tokens on Axiom!</p>';
       return;
     }
 

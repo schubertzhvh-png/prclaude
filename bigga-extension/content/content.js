@@ -1,9 +1,9 @@
 /**
- * BIGGA v2.0 - Content Script for Axiome
+ * BIGGA v2.0 - Content Script for Axiom
  * Highlights tokens based on historian statistics
  */
 
-console.log('🎯 BIGGA v2.0 loaded on Axiome');
+console.log('🎯 BIGGA v2.0 loaded on Axiom');
 
 // State
 let colorSettings = {};
@@ -65,7 +65,7 @@ function isWhitelisted(username) {
  */
 function extractTokenData(card) {
   try {
-    // This will depend on Axiome's HTML structure
+    // This will depend on Axiom's HTML structure
     // Adjust selectors based on actual page structure
 
     // Example selectors (need to be verified)
@@ -253,7 +253,7 @@ async function processTokenCard(card) {
  * Find all token cards on page
  */
 function findTokenCards() {
-  // Adjust selector based on Axiome's actual structure
+  // Adjust selector based on Axiom's actual structure
   // Common patterns:
   const selectors = [
     '[data-token-card]',
@@ -301,7 +301,7 @@ function findTokenCards() {
 async function processAllTokens() {
   const cards = findTokenCards();
 
-  console.log(`🔍 Found ${cards.length} token cards on Axiome`);
+  console.log(`🔍 Found ${cards.length} token cards on Axiom`);
 
   for (const card of cards) {
     await processTokenCard(card);

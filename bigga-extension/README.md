@@ -1,13 +1,13 @@
-# 🎯 BIGGA v2.0 - Axiome Memecoin Analyzer
+# 🎯 BIGGA v2.0 - Axiom Memecoin Analyzer
 
-Browser extension for analyzing memecoin tweets on Axiome and highlighting promising tokens based on historian statistics.
+Browser extension for analyzing memecoin tweets on Axiom and highlighting promising tokens based on historian statistics.
 
 ---
 
 ## 🚀 Features
 
 ### ✅ Automatic Data Collection (24/7)
-- Monitors Axiome for new tokens
+- Monitors Axiom for new tokens
 - Scrapes Twitter profiles WITHOUT API (uses Nitter)
 - Collects historian data:
   - Username
@@ -38,7 +38,7 @@ bigga-extension/
 ├── manifest.json              # Extension manifest (Manifest V3)
 ├── background.js              # Service Worker (scraping, database)
 ├── content/
-│   ├── content.js            # Content script for Axiome
+│   ├── content.js            # Content script for Axiom
 │   └── content.css           # Highlighting styles
 ├── popup/
 │   ├── popup.html            # Settings UI
@@ -74,7 +74,7 @@ bigga-extension/
    - Click the puzzle icon in Chrome toolbar
    - Pin BIGGA v2.0
 
-5. **Visit Axiome:**
+5. **Visit Axiom:**
    - Go to `https://axiome.io`
    - Extension will start analyzing tokens automatically
 
@@ -88,7 +88,7 @@ bigga-extension/
 
 ## 🎮 Usage
 
-### 1. Browse Axiome
+### 1. Browse Axiom
 
 Simply visit https://axiome.io and browse tokens. The extension will:
 - Automatically detect token cards
@@ -139,7 +139,7 @@ View top performing historians:
 ### Data Collection Flow
 
 ```
-1. User visits Axiome
+1. User visits Axiom
    ↓
 2. Content script detects token cards
    ↓
@@ -186,15 +186,15 @@ The extension uses **Nitter** (Twitter frontend alternative) to scrape data with
 
 ## 🎨 Customization
 
-### Adjust Selectors for Axiome
+### Adjust Selectors for Axiom
 
-If Axiome changes their HTML structure, edit `content/content.js`:
+If Axiom changes their HTML structure, edit `content/content.js`:
 
 ```javascript
 // Line ~120: Update token card selectors
 function findTokenCards() {
   const selectors = [
-    '[data-token-card]',     // Add Axiome's actual selector
+    '[data-token-card]',     // Add Axiom's actual selector
     '.token-card',
     '.your-custom-class'
   ];
@@ -301,8 +301,8 @@ Edit `content/content.css`:
 - **Use responsibly** and at your own risk
 - Consider rate limits to avoid IP bans
 
-### Axiome Structure
-- Selectors may need updates if Axiome changes their UI
+### Axiom Structure
+- Selectors may need updates if Axiom changes their UI
 - Check browser console for errors
 - Report issues if cards not detected
 
@@ -319,7 +319,7 @@ Edit `content/content.css`:
 1. Open browser console (F12)
 2. Look for BIGGA logs: `🎯 BIGGA v2.0 loaded`
 3. Check if cards are detected: `🔍 Found X token cards`
-4. Verify selectors match Axiome's HTML structure
+4. Verify selectors match Axiom's HTML structure
 
 ### Twitter scraping fails?
 1. Check network tab for blocked requests
@@ -336,7 +336,7 @@ Edit `content/content.css`:
 ## 📈 Roadmap
 
 ### v2.1 (Planned)
-- [ ] Market Cap tracking from Axiome
+- [ ] Market Cap tracking from Axiom
 - [ ] Auto-update max MC for tokens
 - [ ] Charts in statistics
 

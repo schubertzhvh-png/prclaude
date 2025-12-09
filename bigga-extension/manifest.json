@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "BIGGA v2.0 - Axiome Memecoin Analyzer",
+  "name": "BIGGA v2.0 - Axiom Memecoin Analyzer",
   "version": "2.0.0",
-  "description": "Analyze memecoin tweets on Axiome and highlight promising tokens based on historian statistics",
+  "description": "Analyze memecoin tweets on Axiom and highlight promising tokens based on historian statistics",
 
   "permissions": [
     "storage",

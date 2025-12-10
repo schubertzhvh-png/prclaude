@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BIGGA v2.0 Settings</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>🎯 BIGGA v2.0</h1>
+      <p class="subtitle">Axiom Memecoin Analyzer</p>
+    </header>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" data-tab="colors">🎨 Colors</button>
+      <button class="tab" data-tab="whitelist">⭐ WhiteList</button>
+      <button class="tab" data-tab="stats">📊 Stats</button>
+    </div>
+
+    <!-- Tab Content: Color Settings -->
+    <div class="tab-content active" id="tab-colors">
+      <h2>Color Highlighting Rules</h2>
+      <p class="description">Set colors based on historian's Last 3 Tokens Average Market Cap</p>
+
+      <div class="color-rules" id="colorRulesList">
+        <!-- Dynamic content -->
+      </div>
+
+      <button class="btn btn-primary" id="addColorRule">+ Add Rule</button>
+
+      <div class="actions">
+        <button class="btn btn-success" id="saveColorSettings">Save Colors</button>
+      </div>
+    </div>
+
+    <!-- Tab Content: WhiteList -->
+    <div class="tab-content" id="tab-whitelist">
+      <h2>WhiteList Historians</h2>
+      <p class="description">Favorite historians will always be highlighted in green (or custom color)</p>
+
+      <div class="whitelist-color">
+        <label for="whitelistColor">WhiteList Color:</label>
+        <input type="color" id="whitelistColor" value="#00FF00">
+      </div>
+
+      <div class="input-group">
+        <input type="text" id="whitelistUsername" placeholder="@username" />
+        <button class="btn btn-primary" id="addToWhitelist">+ Add</button>
+      </div>
+
+      <div class="whitelist-items" id="whitelistList">
+        <!-- Dynamic content -->
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-success" id="saveWhitelist">Save WhiteList</button>
+      </div>
+    </div>
+
+    <!-- Tab Content: Statistics -->
+    <div class="tab-content" id="tab-stats">
+      <h2>Top Historians</h2>
+      <p class="description">Based on average market cap of their tokens</p>
+
+      <div class="stats-table" id="topHistoriansTable">
+        <div class="loading">Loading statistics...</div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-secondary" id="refreshStats">🔄 Refresh</button>
+        <button class="btn btn-secondary" id="exportData">📥 Export Data</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Made with 🚀 for memecoin flippers</p>
+    </footer>
+  </div>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>
